@@ -1,0 +1,50 @@
+Tuto: Mise en place d'un depot git via gitHUB
+
+	I. Create an account
+		Create an account on: https://github.com/signup/free
+		Login into your account
+		Link your pc with your account: http://help.github.com/linux-set-up-git/
+		
+	II. Création du dépot git
+		Tuto on http://help.github.com/create-a-repo/
+			URL for new github: https://github.com/repositories/new
+			
+			Global setup:
+
+			 Set up git
+			  git config --global user.name "Amaury"
+			  git config --global user.email y0da@live.fr
+				  
+
+			Next steps:
+
+			  mkdir resaTC
+			  cd resaTC
+			  git init
+			  touch README
+			  git add README
+			  git commit -m 'first commit'
+			  git remote add origin git@github.com:yoda1490/resaTC.git
+			  git push -u origin master
+      
+		
+		III. Add collaborateur in project
+			With account owner of project go on the page of the project: https://github.com/yoda1490/resaTC
+			Clic Admin --> Collaborators and add the nickname of the collaborator
+		
+		
+		
+		
+		
+		IV. Utils
+		Pour envoyer :
+		git add
+		git commit -a -m "Nouvelle description de sauvegarde"
+		git push
+
+
+		Pour recevoir :
+		git pull
+
+		Site pour suivre l'évolution :
+		https://github.com/yoda1490/ResaTC/
