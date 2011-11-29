@@ -1,5 +1,8 @@
 package v1;
-public class Voyageur {
+
+import java.io.Serializable;
+
+public class Voyageur implements Serializable{
 
   private String login;
 
@@ -13,29 +16,31 @@ public class Voyageur {
   }
 
   public void setNom(String nom) {
+	  this.nom = nom;
   }
 
   public void setPrenom(String prenom) {
+	  this.prenom = prenom;
   }
 
   public Boolean checkPassword(String password) {
-  return null;
+	  return null;
   }
 
   public int getId() {
-  return 0;
+	  return 0;
   }
 
   public String getLogin() {
-  return null;
+	  return null;
   }
 
   public String getNom() {
-  return null;
+	  return null;
   }
 
   public String getPrenom() {
-  return null;
+	  return null;
   }
 
   public void setLogin(String login) {

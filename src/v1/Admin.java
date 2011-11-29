@@ -1,70 +1,76 @@
 package v1;
+
+import static java.lang.System.out;
+
 public class Admin {
 
-  public void main() {
+  public static void mainMenu() {
+	  out.println("1. Faire une Reservation");
+	  out.println("2. Modifier une Reservation");
+	  out.println("3. ")
   }
 
-  public void mainMenu() {
+  public static void vehiculeMenu() {
   }
 
-  public void vehiculeMenu() {
+  public static void trajetMenu() {
   }
 
-  public void trajetMenu() {
+  public static void voyageurMenu() {
   }
 
-  public void voyageurMenu() {
+  public static void printAddTypeVehicule() {
   }
 
-  public void printAddTypeVehicule() {
+  public static void printAddVehicule() {
   }
 
-  public void printAddVehicule() {
+  public static void printAddStation() {
   }
 
-  public void printAddStation() {
+  public static void printAddTrajet() {
   }
 
-  public void printAddTrajet() {
+  public static void printRemoveTypeVehicule() {
   }
 
-  public void printRemoveTypeVehicule() {
+  public static void printRemoveVehicule() {
   }
 
-  public void printRemoveVehicule() {
+  public static void printRemoveStation() {
   }
 
-  public void printRemoveStation() {
+  public static void printRemoveTrajet() {
   }
 
-  public void printRemoveTrajet() {
+  public static void printSearchVehicule() {
   }
 
-  public void printSearchVehicule() {
+  public static void printSearchStation() {
   }
 
-  public void printSearchStation() {
+  public static void printSearchVoyageur() {
   }
 
-  public void printSearchVoyageur() {
+  public static void printSearchTrajet() {
   }
 
-  public void printSearchTrajet() {
+  public static void printListTypeVehicule(TypeVehicule[] tabTypeVehicule) {
   }
 
-  public void printListTypeVehicule(TypeVehicule[] tabTypeVehicule) {
+  public static void printResultVehicule(Vehicule[] tabVehicule) {
   }
 
-  public void printResultVehicule(Vehicule[] tabVehicule) {
+  public static void printResultStation(Station[] tabStation) {
   }
 
-  public void printResultStation(Station[] tabStation) {
+  public static void printResultVoyageur(Voyageur[] tabVoyageur) {
   }
 
-  public void printResultVoyageur(Voyageur[] tabVoyageur) {
+  public static void printResultTrajet(Trajet[] tabTrajet) {
   }
-
-  public void printResultTrajet(Trajet[] tabTrajet) {
+  
+  public static void main(String[] args) {
   }
 
 }

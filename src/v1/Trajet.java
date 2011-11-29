@@ -1,9 +1,11 @@
 package v1;
-import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class Trajet {
 
   private int id;
+  
+  private static int compteur;
 
   private Vehicule vehicule;
 
@@ -11,47 +13,64 @@ public class Trajet {
 
   private Station arrivee;
 
-  private Calendar DateDepart;
+  private GregorianCalendar dateDepart;
 
-  private Calendar DateArrivee;
+  private GregorianCalendar dateArrivee;
+  
+  public Trajet() {
+	  this.id = ++compteur;
+  }
 
-  public void setVehicule() {
+  public void setVehicule(Vehicule vehicule) {
+	  this.vehicule = vehicule;
   }
 
   public void setDepart(Station depart) {
+	  this.depart = depart;
   }
 
   public void setArrivee(Station arrivee) {
+	  this.arrivee = arrivee;
   }
 
-  public void setDateDepart(Calendar dateDepart) {
+  public void setDateDepart(GregorianCalendar dateDepart) {
+	  this.dateDepart = dateDepart;
+  }
+  
+  public void setDateDepart(int year, int month, int day, int hour, int minute) {
+	  this.dateDepart = new GregorianCalendar(year, month, day, hour, minute);
   }
 
-  public void setDateArrivee(Calendar dateArrivee) {
+  public void setDateArrivee(GregorianCalendar dateArrivee) {
+	  this.dateArrivee = dateArrivee;
+  }
+  
+  public void setDateArrivee(int year, int month, int day, int hour, int minute) {
+	  this.dateArrivee = new GregorianCalendar(year, month, day, hour, minute);
   }
 
   public int getId() {
-  return 0;
+	  return id;
   }
 
   public Vehicule getVehicule() {
-  return null;
+	  return this.vehicule;
   }
 
   public Station getDepart() {
-  return null;
+	  return this.depart;
   }
 
   public Station getArrivee() {
-  return null;
+	  return this.arrivee;
   }
 
-  public Calendar getDateDepart() {
-  return null;
+  public GregorianCalendar getDateDepart() {
+	  return this.dateDepart;
   }
 
-  public Calendar getDateArrivee() {
-  return null;
+  public GregorianCalendar getDateArrivee() {
+	  return this.dateArrivee;
   }
 
 }

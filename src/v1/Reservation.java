@@ -1,31 +1,39 @@
 package v1;
-public class Reservation {
+
+import java.io.Serializable;
+
+public class Reservation implements Serializable{
 
   private int id;
-
+  
+  private static int counter=0;
   private Trajet trajet;
-
   private Voyageur voyageur;
+  
+  public Reservation(Trajet trajet, Voyageur voyageur) {
+	  this.id = ++counter;
+	  this.trajet = trajet;
+	  this.voyageur = voyageur;
+  }
 
   public int getId() {
-  return 0;
+	  return id;
   }
 
   public Trajet getTrajet() {
-  return null;
+	  return trajet;
   }
 
   public Voyageur getVoyageur() {
-  return null;
-  }
-
-  public void setId(int id) {
+	  return this.voyageur;
   }
 
   public void setTrajet(Trajet trajet) {
+	  this.trajet = trajet;
   }
 
   public void setVoyageur(Voyageur voyageur) {
+	  this.voyageur = voyageur;
   }
 
 }
