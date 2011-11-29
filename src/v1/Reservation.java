@@ -7,25 +7,33 @@ public class Reservation {
 
   private Voyageur voyageur;
 
-  public int getId() {
-  return 0;
-  }
+public Reservation(int id, Trajet trajet, Voyageur voyageur) {
+	super();
+	this.id = id;
+	this.trajet = trajet;
+	this.voyageur = voyageur;
+}
 
-  public Trajet getTrajet() {
-  return null;
-  }
+public Trajet getTrajet() {
+	return trajet;
+}
 
-  public Voyageur getVoyageur() {
-  return null;
-  }
+public void setTrajet(Trajet trajet) {
+	this.trajet = trajet;
+}
 
-  public void setId(int id) {
-  }
+public Voyageur getVoyageur() {
+	return voyageur;
+}
 
-  public void setTrajet(Trajet trajet) {
-  }
+public void setVoyageur(Voyageur voyageur) {
+	this.voyageur = voyageur;
+}
 
-  public void setVoyageur(Voyageur voyageur) {
-  }
+public int getId() {
+	return id;
+}
+
+  
 
 }

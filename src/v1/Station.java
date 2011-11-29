@@ -12,30 +12,52 @@ public class Station {
   private Point coordonees;
 
   public int id;
+  
+  
 
-  public String getNomStation() {
-  return null;
-  }
-
-  public void setPays(String pays) {
-  }
-
-  public void setVille(String ville) {
-  }
-
-  public void setNomStation(String nomStation) {
-  }
+  public Station(String pays, String ville, String nomStation, Point coordonees, int id) {
+	this.pays = pays;
+	this.ville = ville;
+	this.nomStation = nomStation;
+	this.coordonees = coordonees;
+	this.id = id;
+}
 
   public int getId() {
-  return 0;
+	  return id;
   }
 
   public String getPays() {
-  return null;
+	  return pays;
   }
 
   public String getVille() {
-  return null;
+	  return ville;
   }
+  
+  public Point getCoordonees() {
+	  return coordonees;
+  }
+  
+public String getNomStation() {
+	  return nomStation;
+  }
+
+  public void setPays(String aPays) {
+	  pays = aPays;
+  }
+
+  public void setVille(String aVille) {
+	  ville = aVille;
+  }
+
+  public void setNomStation(String aNomStation) {
+	  nomStation = aNomStation;
+  }
+  
+  public void setCoordonees(Point aCoordonees) {
+	  coordonees = aCoordonees;
+  }
+
 
 }

@@ -9,36 +9,46 @@ public class Voyageur {
 
   private String prenom;
 
-  public void setPassword(String password) {
-  }
+public Voyageur(String login, String password, String nom, String prenom) {
+	super();
+	this.login = login;
+	this.password = password;
+	this.nom = nom;
+	this.prenom = prenom;
+}
 
-  public void setNom(String nom) {
-  }
+public String getLogin() {
+	return login;
+}
 
-  public void setPrenom(String prenom) {
-  }
+public void setLogin(String login) {
+	this.login = login;
+}
 
-  public Boolean checkPassword(String password) {
-  return null;
-  }
+public String getPassword() {
+	return password;
+}
 
-  public int getId() {
-  return 0;
-  }
+public void setPassword(String password) {
+	this.password = password;
+}
 
-  public String getLogin() {
-  return null;
-  }
+public String getNom() {
+	return nom;
+}
 
-  public String getNom() {
-  return null;
-  }
+public void setNom(String nom) {
+	this.nom = nom;
+}
 
-  public String getPrenom() {
-  return null;
-  }
+public String getPrenom() {
+	return prenom;
+}
 
-  public void setLogin(String login) {
-  }
+public void setPrenom(String prenom) {
+	this.prenom = prenom;
+}
+
+  
 
 }

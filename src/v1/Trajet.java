@@ -15,43 +15,63 @@ public class Trajet {
 
   private Calendar DateArrivee;
 
-  public void setVehicule() {
-  }
+public Trajet(int id, Vehicule vehicule, Station depart, Station arrivee, Calendar dateDepart, Calendar dateArrivee) {
+	this.id = id;
+	this.vehicule = vehicule;
+	this.depart = depart;
+	this.arrivee = arrivee;
+	DateDepart = dateDepart;
+	DateArrivee = dateArrivee;
+}
 
-  public void setDepart(Station depart) {
-  }
+public Vehicule getVehicule() {
+	return vehicule;
+}
 
-  public void setArrivee(Station arrivee) {
-  }
+public void setVehicule(Vehicule vehicule) {
+	this.vehicule = vehicule;
+}
 
-  public void setDateDepart(Calendar dateDepart) {
-  }
+public Station getDepart() {
+	return depart;
+}
 
-  public void setDateArrivee(Calendar dateArrivee) {
-  }
+public void setDepart(Station depart) {
+	this.depart = depart;
+}
 
-  public int getId() {
-  return 0;
-  }
+public Station getArrivee() {
+	return arrivee;
+}
 
-  public Vehicule getVehicule() {
-  return null;
-  }
+public void setArrivee(Station arrivee) {
+	this.arrivee = arrivee;
+}
 
-  public Station getDepart() {
-  return null;
-  }
+public Calendar getDateDepart() {
+	return DateDepart;
+}
 
-  public Station getArrivee() {
-  return null;
-  }
+public void setDateDepart(Calendar dateDepart) {
+	DateDepart = dateDepart;
+}
 
-  public Calendar getDateDepart() {
-  return null;
-  }
+public Calendar getDateArrivee() {
+	return DateArrivee;
+}
 
-  public Calendar getDateArrivee() {
-  return null;
-  }
+public void setDateArrivee(Calendar dateArrivee) {
+	DateArrivee = dateArrivee;
+}
+
+public int getId() {
+	return id;
+}
+
+
+  
+  
+
+  
 
 }

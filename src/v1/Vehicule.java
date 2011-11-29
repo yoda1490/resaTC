@@ -3,26 +3,46 @@ public class Vehicule {
 
   private int id;
 
-  private TypeVehicule typeVehicule;
+  private String typeVehicule;
+  
+  private String nomVehicule;
 
   private int nbPlace;
+  
+  public Vehicule(int id, String typeVehicule, String nomVehicule, int nbPlace) {
+		this.id = id;
+		this.typeVehicule = typeVehicule;
+		this.nbPlace = nbPlace;
+	}
+  
 
-  public TypeVehicule getTypeVehicule() {
-  return null;
+  public int getId() {
+	  return id;
+  }
+  
+  public String getTypeVehicule() {
+	  return typeVehicule;
+  }
+
+  public String getNomVehicule() {
+	  return nomVehicule;
   }
 
   public int getNbPlace() {
-  return 0;
+	  return nbPlace;
   }
 
-  public void setTypeVehicule(TypeVehicule typeVehicule) {
+  public void setTypeVehicule(String typeVehicule) {
+	  this.typeVehicule = typeVehicule;
+  }
+  
+  public void setNomVehicule(String nomVehicule) {
+	  this.nomVehicule = nomVehicule;
   }
 
   public void setNbPlace(int nbPlace) {
+	  this.nbPlace = nbPlace;
   }
 
-  public int getId() {
-  return 0;
-  }
 
 }
