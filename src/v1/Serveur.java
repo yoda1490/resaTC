@@ -1,15 +1,22 @@
 package v1;
 import java.awt.Point;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Serveur {
 
 
-	private Vehicule vehicule1 = new Vehicule(1, "bus", "100 express", 40);
-	private Vehicule vehicule2 = new Vehicule(2, "bus", "11", 25);
-	private Vehicule vehicule3 = new Vehicule(3, "avion", "F-GGMH", 100);
-                  private Vehicule vehicule4 = new Vehicule(4, "train", "TGV 2642", 500);
+	private Vehicule vehicule1 = new Vehicule( "bus", "100 express", 40);
+	private Vehicule vehicule2 = new Vehicule( "bus", "11", 25);
+	private Vehicule vehicule3 = new Vehicule( "avion", "F-GGMH", 100);
+                  private Vehicule vehicule4 = new Vehicule(  "train", "TGV 2642", 500);
 
 
   public Vehicule getVehicule(int id) {
@@ -34,6 +41,26 @@ public class Serveur {
 
   
   public Boolean setVehicule(String typeVehicule, String nomVehicule, int nbPlace) {
+      Vehicule vehicule = new Vehicule(typeVehicule, nomVehicule, nbPlace);
+     
+      FileWriter writer = null;
+   
+    try{
+         writer = new FileWriter("vehicule.rstc", true);
+         writer.write(vehicule.toString(),0,vehicule.toString().length());
+    }catch(IOException ex){
+          System.out.println("Erreur d'écriture du fichier");
+    }finally{
+    if(writer != null){
+                try {
+                    writer.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(Serveur.class.getName()).log(Level.SEVERE, null, ex);
+                }
+    }
+}
+      
+       
   return true;
   }
 

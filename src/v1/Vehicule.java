@@ -10,6 +10,8 @@ public class Vehicule {
   private int nbPlace;
   
   public Vehicule(String typeVehicule, String nomVehicule, int nbPlace) {
+                                     //à l'initialisation on met l'id à 0
+                                     this.id=0;
 		this.typeVehicule = typeVehicule;
                                      this.nomVehicule = nomVehicule;
 		this.nbPlace = nbPlace;
