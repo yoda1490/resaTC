@@ -21,14 +21,14 @@ public class Trajet {
 	  this.id = ++compteur;
   }
 
-<<<<<<< HEAD
-public Trajet(int id, Vehicule vehicule, Station depart, Station arrivee, Calendar dateDepart, Calendar dateArrivee) {
+
+public Trajet(int id, Vehicule vehicule, Station depart, Station arrivee, GregorianCalendar dateDepart, GregorianCalendar dateArrivee) {
 	this.id = id;
 	this.vehicule = vehicule;
 	this.depart = depart;
 	this.arrivee = arrivee;
-	DateDepart = dateDepart;
-	DateArrivee = dateArrivee;
+	this.dateDepart = dateDepart;
+	this.dateArrivee = dateArrivee;
 }
 
 public Vehicule getVehicule() {
@@ -55,21 +55,7 @@ public void setArrivee(Station arrivee) {
 	this.arrivee = arrivee;
 }
 
-public Calendar getDateDepart() {
-	return DateDepart;
-}
 
-public void setDateDepart(Calendar dateDepart) {
-	DateDepart = dateDepart;
-}
-
-public Calendar getDateArrivee() {
-	return DateArrivee;
-}
-
-public void setDateArrivee(Calendar dateArrivee) {
-	DateArrivee = dateArrivee;
-}
 
 public int getId() {
 	return id;
@@ -80,18 +66,7 @@ public int getId() {
   
 
   
-=======
-  public void setVehicule(Vehicule vehicule) {
-	  this.vehicule = vehicule;
-  }
 
-  public void setDepart(Station depart) {
-	  this.depart = depart;
-  }
-
-  public void setArrivee(Station arrivee) {
-	  this.arrivee = arrivee;
-  }
 
   public void setDateDepart(GregorianCalendar dateDepart) {
 	  this.dateDepart = dateDepart;
@@ -109,21 +84,7 @@ public int getId() {
 	  this.dateArrivee = new GregorianCalendar(year, month, day, hour, minute);
   }
 
-  public int getId() {
-	  return id;
-  }
-
-  public Vehicule getVehicule() {
-	  return this.vehicule;
-  }
-
-  public Station getDepart() {
-	  return this.depart;
-  }
-
-  public Station getArrivee() {
-	  return this.arrivee;
-  }
+  
 
   public GregorianCalendar getDateDepart() {
 	  return this.dateDepart;
@@ -132,6 +93,5 @@ public int getId() {
   public GregorianCalendar getDateArrivee() {
 	  return this.dateArrivee;
   }
->>>>>>> 6586e39953b2eeec4c8b96b3e9d14e89d3229f1d
 
 }

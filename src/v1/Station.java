@@ -2,6 +2,8 @@ package v1;
 import java.awt.Point;
 
 public class Station {
+    
+ private int id;
 
   private String ville;
   
@@ -11,9 +13,7 @@ public class Station {
 
   private Point coordonees;
 
-<<<<<<< HEAD
-  public int id;
-  
+
   
 
   public Station(String pays, String ville, String nomStation, Point coordonees, int id) {
@@ -24,38 +24,8 @@ public class Station {
 	this.id = id;
 }
 
-  public int getId() {
-	  return id;
-  }
 
-  public String getPays() {
-	  return pays;
-  }
-
-  public String getVille() {
-	  return ville;
-  }
-  
-  public Point getCoordonees() {
-	  return coordonees;
-  }
-  
-public String getNomStation() {
-	  return nomStation;
-  }
-
-  public void setPays(String aPays) {
-	  pays = aPays;
-  }
-
-  public void setVille(String aVille) {
-	  ville = aVille;
-  }
-
-  public void setNomStation(String aNomStation) {
-	  nomStation = aNomStation;
-=======
-  private int id;
+ 
   
   private static int counter = 0;
 
@@ -89,7 +59,7 @@ public String getNomStation() {
 
   public String getVille() {
 	  return this.ville;
->>>>>>> 6586e39953b2eeec4c8b96b3e9d14e89d3229f1d
+
   }
   
   public void setCoordonees(Point aCoordonees) {

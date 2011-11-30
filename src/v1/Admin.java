@@ -1,6 +1,7 @@
 package v1;
 
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -115,9 +116,16 @@ public class Admin {
 	  Scanner sc = new Scanner(System.in);
 	  
 	  System.out.println("Type du véhicule: ");
-	  String[] listVehicules = listTypeVehicule();
-	  int choixNumType = sc.nextInt();
-	  String choixType = listVehicules[choixNumType];
+	  ArrayList<String> listTypeVehicules = listTypeVehicule();
+                  
+                    for( String typeVehicule :  listTypeVehicules ){
+                        System.out.println(typeVehicule);
+                    }
+                        
+                            
+                            
+	  String choixType = sc.nextLine();
+	  
 	  
 	  System.out.println("ID du véhicule: ");
 	  int choixId = sc.nextInt();
@@ -148,9 +156,9 @@ public class Admin {
 
 
 
-  public static String[] listTypeVehicule() {
+  public static ArrayList<String> listTypeVehicule() {
 	  Serveur connexion = new Serveur();
-	  String[] listVehicules = connexion.listTypeVehicule();
+	  ArrayList<String> listVehicules = connexion.listTypeVehicule();
 	  connexion = null;
 	  return listVehicules;
   }

@@ -1,5 +1,6 @@
 package v1;
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Serveur {
@@ -8,6 +9,7 @@ public class Serveur {
 	private Vehicule vehicule1 = new Vehicule(1, "bus", "100 express", 40);
 	private Vehicule vehicule2 = new Vehicule(2, "bus", "11", 25);
 	private Vehicule vehicule3 = new Vehicule(2, "avion", "F-GGMH", 100);
+                  private Vehicule vehicule4 = new Vehicule(2, "train", "TGV 2642", 500);
 
 
   public Vehicule getVehicule(int id) {
@@ -72,16 +74,31 @@ public class Serveur {
   return null;
   }
 
-  public String[] listTypeVehicule() {
-  return null;
+  public ArrayList<String> listTypeVehicule() {
+     Vehicule  vehicules[] = searchVehicule();
+     ArrayList<String> typeVehicules = new ArrayList<String>();
+     int i=0;
+     for(Vehicule vehicule : vehicules)
+    { 
+        if (typeVehicules.contains(vehicule.getTypeVehicule() ) == false){
+              typeVehicules.add(vehicule.getTypeVehicule());
+        }
+    }
+   return typeVehicules;
   }
 
   public Station[] searchStation(String pays, String ville, String nomStation, Point coordonnee) {
   return null;
   }
 
+  
+   public Vehicule[] searchVehicule() {
+	  return  searchVehicule(-1, "", "", 0, -1);
+  }
+   
+   
   public Vehicule[] searchVehicule(int idVehicule, String typeVehicule, String nomVehicule, int nbPlaceMin, int nbPlaceMax) {
-	  Vehicule listVehicules[] = {vehicule1, vehicule2, vehicule3};
+	  Vehicule listVehicules[] = {vehicule1, vehicule2, vehicule3, vehicule4};
 	  return listVehicules;
   }
 
