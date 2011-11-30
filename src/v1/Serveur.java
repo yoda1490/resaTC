@@ -4,9 +4,11 @@ import java.util.Calendar;
 
 public class Serveur {
 
+
 	private Vehicule vehicule1 = new Vehicule(1, "bus", "100 express", 40);
 	private Vehicule vehicule2 = new Vehicule(2, "bus", "11", 25);
 	private Vehicule vehicule3 = new Vehicule(2, "avion", "F-GGMH", 100);
+
 
   public Vehicule getVehicule(int id) {
   return null;

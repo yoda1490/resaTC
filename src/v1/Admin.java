@@ -1,5 +1,6 @@
 package v1;
 
+
 import java.util.Scanner;
 
 
@@ -82,22 +83,29 @@ public class Admin {
   }
   
   public static void printAddVehicule() {
+
   }
 
-  public void printAddStation() {
+  public static void printAddTrajet() {
   }
 
-  public void printAddTrajet() {
+  public static void printRemoveTypeVehicule() {
   }
 
   public static void printRemoveVehicule() {
+
   }
 
-  public void printRemoveStation() {
+  public static void printRemoveStation() {
+	  
   }
 
-  public void printRemoveTrajet() {
+
+  public static void printRemoveTrajet() {
   }
+
+ 
+
 
   public static void printSearchVehicule() {
 	  System.out.println("Entrez vos critères de recherches:");
@@ -125,37 +133,42 @@ public class Admin {
 	  
 	  Serveur connexion = new Serveur();
 	  connexion.searchVehicule(choixId, choixType, choixNom, choixMinNbPlace, choixMaxNbPlace);
+  }
 	  
+
+  public static void printSearchStation() {
+
   }
 
-  public void printSearchStation() {
+  public static void printSearchVoyageur() {
   }
 
-  public void printSearchVoyageur() {
+  public static void printSearchTrajet() {
   }
 
-  public void printSearchTrajet() {
-  }
+
 
   public static String[] listTypeVehicule() {
 	  Serveur connexion = new Serveur();
 	  String[] listVehicules = connexion.listTypeVehicule();
 	  connexion = null;
 	  return listVehicules;
+  }
 	  
-	  
+
+  public static void printResultVehicule(Vehicule[] tabVehicule) {
+
   }
 
-  public void printResultVehicule(Vehicule[] tabVehicule) {
+  public static void printResultStation(Station[] tabStation) {
   }
 
-  public void printResultStation(Station[] tabStation) {
+  public static void printResultVoyageur(Voyageur[] tabVoyageur) {
   }
 
-  public void printResultVoyageur(Voyageur[] tabVoyageur) {
+  public static void printResultTrajet(Trajet[] tabTrajet) {
   }
-
-  public void printResultTrajet(Trajet[] tabTrajet) {
-  }
+  
+  
 
 }

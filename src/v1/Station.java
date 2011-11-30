@@ -3,14 +3,15 @@ import java.awt.Point;
 
 public class Station {
 
-  private String pays;
-
   private String ville;
+  
+  private String pays;
 
   private String nomStation;
 
   private Point coordonees;
 
+<<<<<<< HEAD
   public int id;
   
   
@@ -53,6 +54,42 @@ public String getNomStation() {
 
   public void setNomStation(String aNomStation) {
 	  nomStation = aNomStation;
+=======
+  private int id;
+  
+  private static int counter = 0;
+
+  public String getNomStation() {
+	  return this.nomStation;
+  }
+
+  public void setPays(String pays) {
+	  this.pays = pays;
+  }
+
+  public void setVille(String ville) {
+	  this.ville = ville; 
+  }
+
+  public void setNomStation(String nomStation) {
+	  this.nomStation = nomStation;
+  }
+
+  public int getId() {
+	  return this.id;
+  }
+  
+  public double distance(Station s) {
+	  return Math.sqrt(Math.pow(coordonees.x -s.coordonees.x,2)+Math.pow(coordonees.y -s.coordonees.y,2));
+  }
+
+  public String getPays() {
+	  return this.pays;
+  }
+
+  public String getVille() {
+	  return this.ville;
+>>>>>>> 6586e39953b2eeec4c8b96b3e9d14e89d3229f1d
   }
   
   public void setCoordonees(Point aCoordonees) {
