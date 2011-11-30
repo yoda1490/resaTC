@@ -8,8 +8,8 @@ public class Serveur {
 
 	private Vehicule vehicule1 = new Vehicule(1, "bus", "100 express", 40);
 	private Vehicule vehicule2 = new Vehicule(2, "bus", "11", 25);
-	private Vehicule vehicule3 = new Vehicule(2, "avion", "F-GGMH", 100);
-                  private Vehicule vehicule4 = new Vehicule(2, "train", "TGV 2642", 500);
+	private Vehicule vehicule3 = new Vehicule(3, "avion", "F-GGMH", 100);
+                  private Vehicule vehicule4 = new Vehicule(4, "train", "TGV 2642", 500);
 
 
   public Vehicule getVehicule(int id) {
@@ -33,8 +33,8 @@ public class Serveur {
   }
 
   
-  public Boolean setVehicule(String typeVehicule, int nbPlace) {
-  return null;
+  public Boolean setVehicule(String typeVehicule, String nomVehicule, int nbPlace) {
+  return true;
   }
 
   public Boolean setStation(String pays, String ville, String nomStation, Point coordonnees) {
@@ -75,7 +75,7 @@ public class Serveur {
   }
 
   public ArrayList<String> listTypeVehicule() {
-     Vehicule  vehicules[] = searchVehicule();
+     ArrayList<Vehicule>  vehicules = searchVehicule();
      ArrayList<String> typeVehicules = new ArrayList<String>();
      int i=0;
      for(Vehicule vehicule : vehicules)
@@ -92,14 +92,30 @@ public class Serveur {
   }
 
   
-   public Vehicule[] searchVehicule() {
+   public ArrayList<Vehicule> searchVehicule() {
 	  return  searchVehicule(-1, "", "", 0, -1);
   }
    
    
-  public Vehicule[] searchVehicule(int idVehicule, String typeVehicule, String nomVehicule, int nbPlaceMin, int nbPlaceMax) {
-	  Vehicule listVehicules[] = {vehicule1, vehicule2, vehicule3, vehicule4};
-	  return listVehicules;
+  public ArrayList<Vehicule> searchVehicule(int idVehicule, String typeVehicule, String nomVehicule, int nbPlaceMin, int nbPlaceMax) {
+	  ArrayList<Vehicule> listVehicules = new ArrayList();
+                    listVehicules.add(vehicule1);
+                    listVehicules.add(vehicule2);
+                    listVehicules.add(vehicule3);
+                    listVehicules.add(vehicule4);
+                    
+                    ArrayList<Vehicule> listeFiltre = new ArrayList();
+                    
+                      for(Vehicule vehicule : listVehicules){
+                              boolean testType = vehicule.getTypeVehicule().matches(".*"+typeVehicule+".*");
+                              boolean testNom = vehicule.getNomVehicule().matches(".*"+nomVehicule+".*");
+                             
+                              if(  (idVehicule==vehicule.getId() || idVehicule==-1) && testType && testNom && vehicule.getNbPlace()>nbPlaceMin && (vehicule.getNbPlace()<nbPlaceMax || nbPlaceMax==-1)  ){
+                                    listeFiltre.add(vehicule);
+                              }
+                                  
+                      }
+	  return listeFiltre;
   }
 
   public Voyageur[] searchVoyageur(String login, String nom, String prenom) {

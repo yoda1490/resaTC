@@ -9,9 +9,9 @@ public class Vehicule {
 
   private int nbPlace;
   
-  public Vehicule(int id, String typeVehicule, String nomVehicule, int nbPlace) {
-		this.id = id;
+  public Vehicule(String typeVehicule, String nomVehicule, int nbPlace) {
 		this.typeVehicule = typeVehicule;
+                                     this.nomVehicule = nomVehicule;
 		this.nbPlace = nbPlace;
 	}
   
@@ -42,6 +42,11 @@ public class Vehicule {
 
   public void setNbPlace(int nbPlace) {
 	  this.nbPlace = nbPlace;
+  }
+  
+    @Override
+  public String toString(){
+      return this.id+";"+this.typeVehicule+";"+this.getNomVehicule()+";"+nbPlace;
   }
 
 
