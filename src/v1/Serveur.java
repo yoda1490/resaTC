@@ -1,8 +1,5 @@
 package v1;
 import java.awt.Point;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -48,6 +45,7 @@ public class Serveur {
     try{
          writer = new FileWriter("vehicule.rstc", true);
          writer.write(vehicule.toString(),0,vehicule.toString().length());
+         
     }catch(IOException ex){
           System.out.println("Erreur d'écriture du fichier");
     }finally{

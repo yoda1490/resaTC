@@ -48,7 +48,7 @@ public class Vehicule {
   
     @Override
   public String toString(){
-      return this.id+";"+this.typeVehicule+";"+this.getNomVehicule()+";"+nbPlace;
+      return this.id+";"+this.typeVehicule+";"+this.getNomVehicule()+";"+nbPlace+"\n";
   }
 
 
