@@ -54,5 +54,10 @@ public void setPrenom(String prenom) {
 }
 
 
+  @Override
+  public String toString(){
+      return this.login+";"+this.password+";"+this.nom+";"+this.prenom+";;\n";
+  }
+
 
 }

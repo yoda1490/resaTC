@@ -16,7 +16,7 @@ public class Station {
 
   
 
-  public Station(String pays, String ville, String nomStation, Point coordonees, int id) {
+  public Station(int id, String nomStation, String ville, String pays, Point coordonees) {
 	this.pays = pays;
 	this.ville = ville;
 	this.nomStation = nomStation;
@@ -66,5 +66,18 @@ public class Station {
 	  coordonees = aCoordonees;
   }
 
+  public int getCoordoneeX() {
+	  return this.coordonees.x;
+  }
+  
+  public int getCoordoneeY() {
+	  return this.coordonees.y;
+  }
+  
+  
+  @Override
+  public String toString(){
+      return this.id+";"+this.nomStation+";"+this.ville+";"+this.pays+";"+this.coordonees.x+";"+this.coordonees.y+";;\n";
+  }
 
 }
