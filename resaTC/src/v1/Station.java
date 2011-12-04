@@ -22,6 +22,7 @@ public class Station {
 	this.nomStation = nomStation;
 	this.coordonees = coordonees;
 	this.id = id;
+        
 }
 
 
@@ -64,6 +65,10 @@ public class Station {
   
   public void setCoordonees(Point aCoordonees) {
 	  coordonees = aCoordonees;
+  }
+  
+  public Point getCoordonee() {
+	  return this.coordonees;
   }
 
   public int getCoordoneeX() {

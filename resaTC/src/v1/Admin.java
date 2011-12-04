@@ -1,7 +1,9 @@
 package v1;
 
+import java.awt.Point;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -100,6 +102,39 @@ public class Admin {
     }
 
     public static void trajetMenu() {
+        clear();
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("\n\n\nChoisissez une option: \n");
+        System.out.println("1: Rechercher un trajet\n");
+        System.out.println("2: Ajouter un trajet\n");
+        System.out.println("3: Supprimer un trajet\n");
+        System.out.println("4: Retour au menu principal\n");
+        System.out.print("> "); // print prompt
+        int choix = sc.nextInt();
+        switch (choix) {
+            case 1:
+                printSearchTrajet();
+                break;
+
+            case 2:
+                printAddTrajet();
+                break;
+
+            case 3:
+                printRemoveTrajet();
+                break;
+
+            case 4:
+                mainMenu();
+                break;
+
+            default:
+                System.out.println("Erreur: menu non disponible");
+                trajetMenu();
+
+        }
     }
 
     public static void voyageurMenu() {
@@ -123,7 +158,7 @@ public class Admin {
 
             default:
                 System.out.println("Erreur: menu non disponible");
-                vehiculeMenu();
+                voyageurMenu();
 
         }
     }
@@ -149,7 +184,7 @@ public class Admin {
 
             default:
                 System.out.println("Erreur: menu non disponible");
-                vehiculeMenu();
+                stationMenu();
 
         }
     }
@@ -190,7 +225,7 @@ public class Admin {
 
             default:
                 System.out.println("Erreur: menu non disponible");
-                vehiculeMenu();
+                plusMenu();
 
         }
     }
@@ -277,9 +312,156 @@ public class Admin {
     }
 
     public static void printAddTrajet() {
+        System.out.println("Bienvenue dans l'assistant d'ajout de trajet de resaTC.");
+
+        Serveur connexion = new Serveur();
+        ArrayList<Vehicule> listeVehicules = connexion.searchVehicule();
+        ArrayList<Station> listeStations = connexion.searchStation();
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Numéro du véhicule: ");
+        printResultVehicule(listeVehicules);
+        System.out.print("\n>");
+        String choixVehiculeString = sc.nextLine();
+        
+
+        System.out.println("\nNuméro de la station de départ: ");
+        printResultStation(listeStations);
+        System.out.print("\n>");
+        String choixDepartString = sc.nextLine();
+        
+        System.out.println("\nNuméro de la station d'arrivée: ");
+        printResultStation(listeStations);
+        System.out.print("\n>");
+        String choixArriveeString = sc.nextLine();
+        
+        System.out.println("\nDate de départ: ");
+        System.out.print("Jour: ");
+        String choixJourDepart = sc.nextLine();
+        System.out.print("Mois: ");
+        String choixMoisDepart = sc.nextLine();
+        System.out.print("Année: ");
+        String choixAnneeDepart = sc.nextLine();
+        System.out.print("Heure (ex: pour 12h30 taper 12): ");
+        String choixHeureDepart = sc.nextLine();
+        System.out.print("Minute (ex: pour 12h30 taper 30): ");
+        String choixMinuteDepart = sc.nextLine();
+
+        System.out.println("\n\nDate d'arrivé: ");
+        System.out.print("Jour: ");
+        String choixJourArrivee = sc.nextLine();
+        System.out.print("Mois: ");
+        String choixMoisArrivee = sc.nextLine();
+        System.out.print("Année: ");
+        String choixAnneeArrivee = sc.nextLine();
+        System.out.print("Heure (ex: pour 12h30 taper 12): ");
+        String choixHeureArrivee = sc.nextLine();
+        System.out.print("Minute (ex: pour 12h30 taper 30): ");
+        String choixMinuteArrivee = sc.nextLine();
+
+        Timestamp choixDateDepart = null;
+        Timestamp choixDateArrivee = null;
+
+        Vehicule choixVehicule = null;
+        
+        Station choixDepart = null;
+        Station choixArrivee = null;
+
+        try {
+            choixDateDepart = new Timestamp(Integer.parseInt(choixAnneeDepart), Integer.parseInt(choixMoisDepart), Integer.parseInt(choixJourDepart), Integer.parseInt(choixHeureDepart), Integer.parseInt(choixMinuteDepart), 0, 0);
+            choixDateArrivee = new Timestamp(Integer.parseInt(choixAnneeArrivee), Integer.parseInt(choixMoisArrivee), Integer.parseInt(choixJourArrivee), Integer.parseInt(choixHeureArrivee), Integer.parseInt(choixMinuteArrivee), 0, 0);
+
+            ArrayList<Vehicule> arrayVehicule = connexion.searchVehicule(Integer.parseInt(choixVehiculeString), "", "", -1, -1);
+            if (arrayVehicule.size() > 0) {
+                choixVehicule = arrayVehicule.get(0);
+            } else{
+                System.out.println("Erreur: véhicule inconnu");
+                trajetMenu();
+                return;
+            }
+            
+            ArrayList<Station> arrayStation = connexion.searchStation(Integer.parseInt(choixDepartString), "", "", "", -1, -1);
+            if (arrayStation.size() > 0) {
+                choixDepart = arrayStation.get(0);
+            } else{
+                System.out.println("Erreur: station de départ inconnu");
+                trajetMenu();
+                return;
+            }
+            
+            arrayStation = connexion.searchStation(Integer.parseInt(choixArriveeString), "", "", "", -1, -1);
+            if (arrayStation.size() > 0) {
+                choixArrivee = arrayStation.get(0);
+            } else{
+                System.out.println("Erreur: station d'arrivée inconnu");
+                trajetMenu();
+                return;
+            }
+
+
+        } catch (Exception e) {
+            System.out.println("Une erreur s'est produite, les données du trajet n'ont pas été enregistrées");
+            trajetMenu();
+            return;
+        }
+
+
+
+
+
+        if (connexion.setTrajet(choixVehicule, choixDepart, choixArrivee, choixDateDepart, choixDateArrivee)) {
+            System.out.println("Trajet ajoutée à la base de donnée avec succès");
+        } else {
+            System.out.println("Une erreur inconnue s'est produite");
+        }
+        System.out.println("appuyez sur la touche Entrer pour continuer");
+        sc.nextLine();
+        trajetMenu();
+
     }
 
     public static void printAddStation() {
+        System.out.println("Bienvenue dans l'assistant d'ajout de station de resaTC.");
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Nom de la station: ");
+        String choixNom = sc.nextLine();
+
+        System.out.print("Ville: ");
+        String choixVille = sc.nextLine();
+
+        System.out.print("Pays: ");
+        String choixPays = sc.nextLine();
+
+        System.out.print("Latitude: (exemple: 43.6172) ");
+        String choixLatitudeFloat = sc.nextLine();
+
+
+        System.out.print("Longitude: (exemple: 7.0742)");
+        String choixLongitudeFloat = sc.nextLine();
+
+        Serveur connexion = new Serveur();
+
+        Point coordonees = null;
+        try {
+            int choixLatitude = (int) (Float.parseFloat(choixLatitudeFloat) * 10000);
+            int choixLongitude = (int) (Float.parseFloat(choixLongitudeFloat) * 10000);
+
+            coordonees = new Point(choixLatitude, choixLongitude);
+        } catch (Exception e) {
+            System.out.println("Une erreur s'est produite, les coordonnées n'ont pas été enregistrées");
+            coordonees = new Point(0, 0);
+        }
+
+        if (connexion.setStation(choixNom, choixVille, choixPays, coordonees)) {
+            System.out.println("Station ajoutée à la base de donnée avec succès");
+        } else {
+            System.out.println("Une erreur inconnue s'est produite");
+        }
+        System.out.println("appuyez sur la touche Entrer pour continuer");
+        sc.nextLine();
+        plusMenu();
+
     }
 
     public static void printAddReservation() {
@@ -320,6 +502,39 @@ public class Admin {
     }
 
     public static void printRemoveStation() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Numéro d'identifiant de la staion à supprimer: ");
+        String choixSuppress = sc.nextLine();
+
+        try {
+            int suppress = Integer.parseInt(choixSuppress);
+            Serveur connexion = new Serveur();
+
+            if (connexion.searchStation(suppress, "", "", "", -1, -1).size() > 0) {
+                System.out.println("Attention /!\\ êtes vous sûr de vouloir supprime la staion suivante: ");
+                Station station = connexion.searchStation(suppress, "", "", "", -1, -1).get(0);
+                System.out.println("Nom de la station: " + station.getNomStation() + " \tVille" + station.getVille() + " \tPays" + station.getPays() + " (rentrer \"oui\"): ");
+                String validationSuppress = sc.nextLine();
+                if (validationSuppress.compareToIgnoreCase("oui") == 0) {
+
+
+                    //on supprime la(s) station(s) dont on a spécifié l'id 
+                    System.out.println(connexion.removeStation(suppress) + " station supprimé");
+                }
+
+            } else {
+                System.out.println("La station que vous voulez supprimer n'existe pas !");
+            }
+
+            connexion = null;
+
+
+        } catch (NumberFormatException e) {
+        }
+
+        System.out.print("Appuyez sur la touche Entrer pour continuer");
+        sc.nextLine();
+        stationMenu();
     }
 
     public static void printRemoveTrajet() {
@@ -390,7 +605,7 @@ public class Admin {
     }
 
     public static void printSearchStation() {
-                System.out.println("\n\n\nEntrez vos critères de recherches:");
+        System.out.println("\n\n\nEntrez vos critères de recherches:");
         System.out.println("Vous pouvez rentrer le mot entier ou seulement une partie du critère");
         System.out.println("(Laissez les champs inconnus vides)");
 
@@ -414,52 +629,53 @@ public class Admin {
 
         System.out.print("Ville: ");
         String choixVille = sc.nextLine();
-        
+
         System.out.print("Pays: ");
         String choixPays = sc.nextLine();
-        
-        
+
+
         System.out.println("Coordonnées: ");
-        
-        System.out.print("Longitude: ");
-        String choixLongitudeString = sc.nextLine();
-        int choixLongitude = 0;
-        try {
-            float choixLongitudeFloat = Integer.parseInt(choixLongitudeString);
-            
-            //transformation des coordonées reel en entier pour qu'elles puissent atre dans un type point
-            choixLongitude *= 10000;
-            choixLongitude = (int)choixLongitudeFloat;
-
-        } catch (NumberFormatException e) {
-
-            choixLongitude = -1;
-        }
 
         System.out.print("Latitude: ");
         String choixLatitudeString = sc.nextLine();
         int choixLatitude = 0;
         try {
             float choixLatitudeFloat = Integer.parseInt(choixLatitudeString);
-            
-            //transformation des coordonées reel en entier pour qu'elles puissent atre dans un type point
+
+            //transformation des coordonées reel en entier pour qu'elles puissent être dans un type point
             choixLatitude *= 10000;
-            choixLatitude = (int)choixLatitudeFloat;
+            choixLatitude = (int) choixLatitudeFloat;
+
+        } catch (NumberFormatException e) {
+
+            choixLatitude = -1;
+        }
+
+        System.out.print("Longitude: ");
+        String choixLongitudeString = sc.nextLine();
+        int choixLongitude = 0;
+        try {
+            float choixLongitudeFloat = Integer.parseInt(choixLongitudeString);
+
+            //transformation des coordonées reel en entier pour qu'elles puissent atre dans un type point
+            choixLongitude *= 10000;
+            choixLongitude = (int) choixLongitudeFloat;
 
         } catch (NumberFormatException e) {
 
             choixLongitude = -1;
         }
-        
-        
+
+
+
+
         Serveur connexion = new Serveur();
-        printResultStation(connexion.searchStation(choixId, choixNom, choixVille, choixPays, choixLongitude, choixLatitude));
+        printResultStation(connexion.searchStation(choixId, choixNom, choixVille, choixPays, choixLatitude, choixLongitude));
         connexion = null;
 
 
-        System.out.print("Appuyez sur la touche Entrer pour continuer");
-        sc.nextLine();
-        voyageurMenu();
+        System.out.println("\nVoulez-vous supprimer une station ? (rentrez n'importe quelle lettre(s) pour non)");
+        printRemoveStation();
     }
 
     public static void printSearchVoyageur() {
@@ -517,7 +733,6 @@ public class Admin {
     }
 
     public static void printResultVoyageur(ArrayList<Voyageur> tabVoyageur) {
-        System.out.println("oui");
         for (Voyageur voyageur : tabVoyageur) {
             System.out.print("Login: " + voyageur.getLogin());
             System.out.print("\tNom: " + voyageur.getNom());
@@ -528,6 +743,14 @@ public class Admin {
     }
 
     public static void printResultStation(ArrayList<Station> tabStation) {
+        for (Station station : tabStation) {
+            System.out.print("id: " + station.getId());
+            System.out.print("\tNom: " + station.getNomStation());
+            System.out.print("\tVille: " + station.getVille());
+            System.out.print("\tPays: " + station.getPays());
+            System.out.println("\tCoordonees: " + station.getCoordoneeX() + ":" + station.getCoordoneeY());
+
+        }
     }
 
     public static void printResultTrajet(ArrayList<Trajet> tabTrajet) {

@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
@@ -43,16 +44,16 @@ public class Serveur {
     public Boolean setVehicule(String typeVehicule, String nomVehicule, int nbPlace) {
         int id = 0;
         ArrayList<Vehicule> vehicules = searchVehicule();
-        
-        
+
+
         //récupération de l'id max puis on ajoute 1 pour le nouveau
         for (Vehicule vehicule : vehicules) {
             if (vehicule.getId() > id) {
                 //System.out.println(vehicule.getId()+"=="+id);
                 id = vehicule.getId();
-            } 
+            }
         }
-        
+
         id++;
 
         return setVehicule(id, typeVehicule, nomVehicule, nbPlace);
@@ -84,6 +85,29 @@ public class Serveur {
         return true;
     }
 
+    public Boolean setStation(Station station) {
+        return setStation(station.getId(), station.getNomStation(), station.getVille(), station.getPays(), station.getCoordonee());
+    }
+
+    public Boolean setStation(String nom, String ville, String pays, Point coordonees) {
+        int id = 0;
+        ArrayList<Station> stations = searchStation();
+
+
+        //récupération de l'id max puis on ajoute 1 pour le nouveau
+        for (Station station : stations) {
+            if (station.getId() > id) {
+                //System.out.println(vehicule.getId()+"=="+id);
+                id = station.getId();
+            }
+        }
+
+        id++;
+
+        return setStation(id, nom, ville, pays, coordonees);
+
+    }
+
     public Boolean setStation(int id, String nom, String ville, String pays, Point coordonees) {
         Station station = new Station(id, nom, ville, pays, coordonees);
 
@@ -110,13 +134,13 @@ public class Serveur {
     }
 
     public int setVoyageur(String login, String password, String nom, String prenom) {
-                ArrayList<Voyageur>  loginExistant = searchVoyageur(login, "","");
-                if(loginExistant.size() > 0){
-                    //System.out.println("Le nom d'utilisateur choisi existe deja");
-                    //le serveur n'est pas censé pouvoir écrire sur notre sortie standard
-                    return 1;
-                }
-                Voyageur voyageur = new Voyageur(login, password, nom, prenom);
+        ArrayList<Voyageur> loginExistant = searchVoyageur(login, "", "");
+        if (loginExistant.size() > 0) {
+            //System.out.println("Le nom d'utilisateur choisi existe deja");
+            //le serveur n'est pas censé pouvoir écrire sur notre sortie standard
+            return 1;
+        }
+        Voyageur voyageur = new Voyageur(login, password, nom, prenom);
 
         FileWriter writer = null;
 
@@ -140,8 +164,48 @@ public class Serveur {
         return 0;
     }
 
-    public Boolean setTrajet(Vehicule vehicule, Station depart, Station arrivee, Calendar dateDepart, Calendar dateArrivee) {
-        return null;
+    public Boolean setTrajet(Vehicule vehicule, Station depart, Station arrivee, Timestamp dateDepart, Timestamp dateArrivee) {
+        int id = 0;
+        ArrayList<Trajet> trajets = searchTrajet();
+
+
+        //récupération de l'id max puis on ajoute 1 pour le nouveau
+        for (Trajet trajet : trajets) {
+            if (trajet.getId() > id) {
+                //System.out.println(vehicule.getId()+"=="+id);
+                id = trajet.getId();
+            }
+        }
+
+        id++;
+
+        return setTrajet(id, vehicule, depart, arrivee, dateDepart, dateArrivee);
+
+    }
+
+    public Boolean setTrajet(int id, Vehicule vehicule, Station depart, Station arrivee, Timestamp dateDepart, Timestamp dateArrivee) {
+        Trajet trajet = new Trajet(id, vehicule, depart, arrivee, dateDepart, dateArrivee);
+
+        FileWriter writer = null;
+
+        try {
+            writer = new FileWriter("trajet.rstc", true);
+            writer.write(trajet.toString(), 0, trajet.toString().length());
+
+        } catch (IOException ex) {
+            System.out.println("Erreur d'écriture du fichier");
+        } finally {
+            if (writer != null) {
+                try {
+                    writer.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(Serveur.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+
+
+        return true;
     }
 
     public Boolean setReservation(Trajet trajet, Voyageur voyageur) {
@@ -150,7 +214,7 @@ public class Serveur {
 
     public int removeVehicule(int id) {
         int cptRemove = 0;
-        
+
         ArrayList<Vehicule> vehicules = searchVehicule();
         try {
             PrintWriter printwriter = new PrintWriter(new FileOutputStream("vehicule.rstc"));
@@ -161,7 +225,7 @@ public class Serveur {
             System.out.println("Error clear file vehicule.rstc");
         }
 
-           
+
         for (Vehicule vehicule : vehicules) {
             if (vehicule.getId() != id) {
                 //System.out.println(vehicule.getId()+"=="+id);
@@ -176,8 +240,31 @@ public class Serveur {
         return cptRemove;
     }
 
-    public Boolean removeStation(int id) {
-        return null;
+    public int removeStation(int id) {
+        int cptRemove = 0;
+
+        ArrayList<Station> stations = searchStation();
+        try {
+            PrintWriter printwriter = new PrintWriter(new FileOutputStream("station.rstc"));
+            printwriter.print("");
+
+            printwriter.close();
+        } catch (Exception ex) {
+            System.out.println("Error clear file station.rstc");
+        }
+
+
+        for (Station station : stations) {
+            if (station.getId() != id) {
+                setStation(station);
+            } else {
+                cptRemove++;
+            }
+        }
+
+
+
+        return cptRemove;
     }
 
     public Boolean removeVoyageur(int id) {
@@ -205,13 +292,13 @@ public class Serveur {
         }
         return typeVehicules;
     }
-    
+
     public ArrayList<Station> searchStation() {
         return searchStation(-1, "", "", "", -1, -1);
     }
 
     public ArrayList<Station> searchStation(int id, String pays, String ville, String nomStation, int coordoneeX, int coordoneeY) {
-               ArrayList<Station> listStations = new ArrayList();
+        ArrayList<Station> listStations = new ArrayList();
 
 
         BufferedInputStream bis;
@@ -240,7 +327,7 @@ public class Serveur {
                     // 4 car c'est le minimum--> id;nom;ville;pays;X;Y;;
                     if (tabStation.length >= 6) {
                         Point coordonees = new Point(Integer.parseInt(tabStation[4]), Integer.parseInt(tabStation[5]));
-                        listStations.add(new Station(Integer.parseInt(tabStation[0]), tabStation[1], tabStation[2], tabStation[3], coordonees ));
+                        listStations.add(new Station(Integer.parseInt(tabStation[0]), tabStation[1], tabStation[2], tabStation[3], coordonees));
                     }
                 } catch (NumberFormatException e) {
                     System.out.println("Erreur lors du parsage du fichier");
@@ -255,7 +342,8 @@ public class Serveur {
             bis.close();
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("Fichier de la base de données non trouvé, celui-ci sera créé si nécéssaire.");
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -266,8 +354,7 @@ public class Serveur {
             boolean testNom = station.getNomStation().matches(".*" + nomStation + ".*");
             boolean testVille = station.getVille().matches(".*" + ville + ".*");
             boolean testPays = station.getPays().matches(".*" + pays + ".*");
-            
-            
+
             if ((id == station.getId() || id == -1) && testNom && testVille && testPays && (station.getCoordoneeX() == coordoneeX || coordoneeX == -1) && (station.getCoordoneeY() == coordoneeY || coordoneeY == -1)) {
                 listeFiltre.add(station);
             }
@@ -324,7 +411,8 @@ public class Serveur {
             bis.close();
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+           System.out.println("Fichier de la base de données non trouvé, celui-ci sera créé si nécéssaire.");
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -384,9 +472,11 @@ public class Serveur {
             bis.close();
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            System.out.println("Fichier de la base de données non trouvé, celui-ci sera créé si nécéssaire.");
+            
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
         ArrayList<Voyageur> listeFiltre = new ArrayList();
@@ -404,8 +494,101 @@ public class Serveur {
         return listeFiltre;
     }
 
-    public Trajet[] searchTrajet(Vehicule vehicule, String nomVehicule, String depart, String arrivee, Calendar dateDepart, Calendar dateArrivee) {
-        return null;
+    public ArrayList<Trajet> searchTrajet() {
+        return searchTrajet(-1, "", "", "", -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
+    }
+
+    public ArrayList<Trajet> searchTrajet(int id, String nomVehicule, String depart, String arrivee, int jourDepart, int moisDepart, int anneeDepart, int heureDepart, int minuteDepart, int jourArrivee, int moisArrivee, int anneeArrivee, int heureArrivee, int minuteArrivee) {
+        ArrayList<Trajet> listTrajets = new ArrayList();
+
+
+        BufferedInputStream bis;
+
+        try {
+            bis = new BufferedInputStream(new FileInputStream(new File("trajet.rstc")));
+            byte[] buf = new byte[16];
+
+
+            int bytesRead = 0;
+            String chunk = "";
+            while ((bytesRead = bis.read(buf)) != -1) {
+
+                //Process the chunk of bytes read
+                //in this case we just construct a String and print it out
+
+                chunk += new String(buf, 0, bytesRead);
+
+            }
+            //liste des trajets sous la fomre id;idVehicule;idDepart;idArrive;dateDepart;dapteArrivee;;
+            String trajets[] = chunk.split(";;\n");
+            //NumberFormatException
+            for (String trajet : trajets) {
+                String tabTrajet[] = trajet.split(";");
+                try {
+                    // 4 car c'est le minimum--> id;idVehicule;idDepart;idArrive;dateDepart;dapteArrivee;;
+                    if (tabTrajet.length >= 6) {
+                        Vehicule vehicule = searchVehicule(Integer.parseInt(tabTrajet[1]), "", "", -1, -1).get(0);
+                        Station stationDepart = searchStation(Integer.parseInt(tabTrajet[2]), "", "", "", -1, -1).get(0);
+                        Station stationArrivee = searchStation(Integer.parseInt(tabTrajet[3]), "", "", "", -1, -1).get(0);
+                        Timestamp dateDepart = new Timestamp(Long.parseLong(tabTrajet[4]));
+                        Timestamp dateArrivee = new Timestamp(Long.parseLong(tabTrajet[5]));
+                                
+                        listTrajets.add(new Trajet(Integer.parseInt(tabTrajet[0]), vehicule, stationDepart, stationArrivee, dateDepart, dateArrivee ));
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Erreur lors du parsage du fichier");
+                    //e.printStackTrace();
+                } catch (Exception e) {
+                    System.out.println("Erreur lors du parsage du fichier");
+                    //e.printStackTrace();
+                }
+            }
+
+
+            bis.close();
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Fichier de la base de données non trouvé, celui-ci sera créé si nécéssaire.");
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        ArrayList<Trajet> listeFiltre = new ArrayList();
+
+        for (Trajet trajet : listTrajets) {
+            boolean testVehicule = trajet.getVehicule().getNomVehicule().matches(".*" + nomVehicule + ".*");
+            boolean testDepart = trajet.getDepart().getNomStation().matches(".*" + depart + ".*");
+            boolean testArrivee = trajet.getArrivee().getNomStation().matches(".*" + arrivee + ".*");
+
+            boolean testDateDepart = false;
+            boolean testDateArrivee = false;
+            
+            if( ((trajet.getDateDepart().getDay() == jourDepart) || jourDepart == -1) &&
+                ((trajet.getDateDepart().getMonth() == moisDepart) || moisDepart == -1) &&
+                ((trajet.getDateDepart().getYear() == anneeDepart) || anneeDepart == -1) &&
+                ((trajet.getDateDepart().getHours() == heureDepart) || heureDepart == -1) &&
+                ((trajet.getDateDepart().getMinutes() == minuteDepart) || minuteDepart == -1) 
+            ){
+                testDateDepart = true;
+            }
+            
+            if( ((trajet.getDateArrivee().getDay() == jourArrivee) || jourArrivee == -1) &&
+                ((trajet.getDateArrivee().getMonth() == moisArrivee) || moisArrivee == -1) &&
+                ((trajet.getDateArrivee().getYear() == anneeArrivee) || anneeArrivee == -1) &&
+                ((trajet.getDateArrivee().getHours() == heureArrivee) || heureArrivee == -1) &&
+                ((trajet.getDateArrivee().getMinutes() == minuteArrivee) || minuteArrivee == -1) 
+            ){
+                testDateArrivee = true;
+            }
+            
+            if(testVehicule && testDepart && testArrivee && testDateDepart && testDateArrivee){
+            listeFiltre.add(trajet);
+            }
+            
+
+        }
+        return listeFiltre;
     }
 
     public Reservation[] searchReservation(Trajet trajet, Voyageur voyageur) {

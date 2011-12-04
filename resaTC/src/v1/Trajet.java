@@ -1,28 +1,25 @@
 package v1;
-import java.util.GregorianCalendar;
+
+import java.sql.Timestamp;
 
 public class Trajet {
 
   private int id;
   
-  private static int compteur;
-
   private Vehicule vehicule;
 
   private Station depart;
 
   private Station arrivee;
 
-  private GregorianCalendar dateDepart;
+  private Timestamp dateDepart;
 
-  private GregorianCalendar dateArrivee;
+  private Timestamp dateArrivee;
   
-  public Trajet() {
-	  this.id = ++compteur;
-  }
+  
 
 
-public Trajet(int id, Vehicule vehicule, Station depart, Station arrivee, GregorianCalendar dateDepart, GregorianCalendar dateArrivee) {
+public Trajet(int id, Vehicule vehicule, Station depart, Station arrivee, Timestamp dateDepart, Timestamp dateArrivee) {
 	this.id = id;
 	this.vehicule = vehicule;
 	this.depart = depart;
@@ -62,36 +59,38 @@ public int getId() {
 }
 
 
-  
-  
 
-  
-
-
-  public void setDateDepart(GregorianCalendar dateDepart) {
+  public void setDateDepart(Timestamp dateDepart) {
 	  this.dateDepart = dateDepart;
   }
   
-  public void setDateDepart(int year, int month, int day, int hour, int minute) {
-	  this.dateDepart = new GregorianCalendar(year, month, day, hour, minute);
-  }
-
-  public void setDateArrivee(GregorianCalendar dateArrivee) {
+  
+  public void setDateArrivee(Timestamp dateArrivee) {
 	  this.dateArrivee = dateArrivee;
   }
   
-  public void setDateArrivee(int year, int month, int day, int hour, int minute) {
-	  this.dateArrivee = new GregorianCalendar(year, month, day, hour, minute);
+  public void setDateDepart(int year, int month, int date, int hour, int minute, int second, int nano) {
+	  this.dateDepart = new Timestamp(year, month, date, hour, minute, second, nano);
   }
-
+  
+  
+  public void setDateArrivee(int year, int month, int date, int hour, int minute, int second, int nano) {
+	  this.dateArrivee = new Timestamp(year, month, date, hour, minute, second, nano);
+  }
   
 
-  public GregorianCalendar getDateDepart() {
+  public Timestamp getDateDepart() {
 	  return this.dateDepart;
   }
 
-  public GregorianCalendar getDateArrivee() {
+  public Timestamp getDateArrivee() {
 	  return this.dateArrivee;
+  }
+  
+  
+  @Override
+  public String toString(){
+      return this.id+";"+this.vehicule.getId()+";"+this.depart.getId()+";"+this.arrivee.getId()+";"+this.dateDepart.getTime()+";"+this.dateArrivee.getTime()+";;\n";
   }
 
 }
