@@ -1,9 +1,0 @@
-window_sizes 1500 787 375 1115 549 144
-motif_style
-show_stereotypes
-selected classview_ref 128009 // vehicule
-open
-  
-  package_ref 128137 // v1
-end
-end
